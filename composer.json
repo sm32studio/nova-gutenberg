@@ -1,5 +1,5 @@
 {
-    "name": "jangvel/nova-gutenberg",
+    "name": "sm32studio/nova-gutenberg",
     "description": "Implementation of the Gutenberg editor as a Laravel Nova Field based on Laraberg.",
     "keywords": [
         "gutenberg",
