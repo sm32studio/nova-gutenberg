@@ -20,7 +20,8 @@
 </template>
 
 <script>
-import {FormField, HandlesValidationErrors} from 'laravel-nova'
+// Fix cant resolve nova mixins package
+import {FormField, HandlesValidationErrors} from '../../../vendor/laravel/nova/resources/js/mixins/packages.js'
 import uuidv4 from '../uuidv4'
 
 export default {
@@ -93,6 +94,34 @@ export default {
                 e.preventDefault()
             }
         })
+
+        /**
+         * Fix for Typography inspector
+         */
+        document.getElementById(this.field?.attribute).addEventListener('click', (e) => {
+            const selector = '[data-wp-component="ToggleGroupControlOptionBase"]'
+            if (
+                e.target.matches(selector)
+                || e.target.parentNode.matches(selector)
+            ) {
+                    // If target is a button and dont have type of button add type button attribute
+                    if(e.target.nodeName == "BUTTON" && e.target.type !== "button"){
+                        e.target.setAttribute("type","button")
+                        e.preventDefault()
+                    }
+
+                    // If target is a div inside button click a parent node
+					if(e.target.nodeName === "DIV"){
+						e.target.parentNode.click()
+					}
+                    
+                    // If target is a button click self 
+                    else if(e.target.nodeName === "BUTTON"){
+                        e.target.click()
+                    }
+            }
+        })
+
     },
     beforeDestroy() {
         Laraberg.removeEditor(this.$refs.input)
